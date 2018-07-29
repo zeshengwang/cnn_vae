@@ -37,10 +37,10 @@ def px_graph(z, y):
         h2 = Dense(h1, 28*14*14, 'layer2', tf.nn.relu, reuse=reuse)
         h2 = tf.reshape(h2,[-1,14,14,28])
         conv1 = tf.layers.conv2d_transpose(h2,28,[3,3],(1,1),padding="same",activation=tf.nn.relu,reuse=reuse)
-        conv2 = tf.layers.conv2d_transpose(conv1,28,[3,3],(2,2),padding="same",activation=tf.nn.relu,reuse=reuse)
-        # conv3 = tf.layers.conv2d_transpose(conv2,1,[3,3],(1,1),padding="same",activation=tf.nn.relu,reuse=reuse)
-        conv3 = Conv2d(conv2, 1, [3,3], [1,1], activation = tf.nn.relu, reuse = reuse, scope = 'convlayer3')
-        px_logit = tf.contrib.layers.flatten(conv3)
+        conv2 = tf.layers.conv2d_transpose(conv1,28,[3,3],(1,1),padding="same",activation=tf.nn.relu,reuse=reuse)
+        conv3 = tf.layers.conv2d_transpose(conv2,28,[3,3],(2,2),padding="same",activation=tf.nn.relu,reuse=reuse)
+        conv4 = Conv2d(conv3, 1, [3,3], [1,1], activation = tf.nn.relu, reuse = reuse, scope = 'convlayer3')
+        px_logit = tf.contrib.layers.flatten(conv4)
     return zm, zv, px_logit
 
 tf.reset_default_graph()
